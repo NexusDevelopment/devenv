@@ -1,0 +1,6 @@
+[submodule "dappsys"]
+	path = dappsys
+	url = https://github.com/NexusDevelopment/dappsys
+[submodule "dapple"]
+	path = dapple
+	url = https://github.com/NexusDevelopment/dapple
