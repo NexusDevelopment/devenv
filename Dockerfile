@@ -45,9 +45,13 @@ RUN ln -s ~/go-ethereum/build/bin/geth /bin/geth
 
 # IPFS
 RUN echo "export PATH=\$GOPATH/bin:\$PATH:" >> ~/.bashrc && echo "export PATH=\$PATH:/usr/local/opt/go/libexec/bin" >> ~/.bashrc
-RUN /bin/bash -c 'groupadd fuse && git clone https://github.com/dylanPowers/ipfs-linux-service.git && cd ipfs-linux-service && ./install-ipfs.sh'
-RUN echo "export IPFS_PATH=/var/lib/ipfs" >> ~/.bashrc
-RUN echo "service ipfs start" >> ~/.bashrc
+RUN go get -u github.com/ipfs/go-ipfs/cmd/ipfs
+ENV PATH $PATH:$GOPATH/bin
+RUN ipfs init
+
+# Cleanup
+RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
 EXPOSE 4001 5001 8080
 
-ENTRYPOINT ["bash"]
+CMD ["ipfs", "daemon"]
