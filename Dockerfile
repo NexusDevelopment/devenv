@@ -1,4 +1,4 @@
-FROM ubuntu:trusty
+FROM phusion/baseimage:0.9.17
 MAINTAINER ryepdx
 
 # Pre-reqs 
@@ -35,17 +35,23 @@ RUN pip install virtualenvwrapper
 RUN /bin/bash -c 'source /usr/local/bin/virtualenvwrapper.sh && mkvirtualenv nexus && workon nexus && pip install mkdocs'
 RUN apt-get -y -q install vim
 
+RUN echo "workon nexus" >> $HOME/.bashrc
+
+RUN cd ~ && git clone --recursive https://github.com/NexusDevelopment/devenv && cd devenv && git submodule init && git submodule update
+RUN /bin/bash -c 'source /usr/local/bin/virtualenvwrapper.sh && cd ~/devenv/dapple && workon nexus && python setup.py install'
+
 RUN ln -s ~/solidity/build/solc/solc /bin/solc
 RUN ln -s ~/go-ethereum/build/bin/geth /bin/geth
 
 # IPFS
 RUN echo "export PATH=\$GOPATH/bin:\$PATH:" >> ~/.bashrc && echo "export PATH=\$PATH:/usr/local/opt/go/libexec/bin" >> ~/.bashrc
-RUN GOPATH=/root/go && go get -u github.com/ipfs/go-ipfs/cmd/ipfs
+RUN go get -u github.com/ipfs/go-ipfs/cmd/ipfs
+ENV PATH $PATH:$GOPATH/bin
+RUN ipfs init
 
-# Repo setup 
-RUN cd ~ && git clone --recursive https://github.com/NexusDevelopment/devenv
-RUN /bin/bash -c 'source /usr/local/bin/virtualenvwrapper.sh && cd ~/devenv/dapple && workon nexus && python setup.py install'
+# Cleanup
+RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-RUN echo "workon nexus" >> ~/.bashrc
+EXPOSE 4001 5001 8080
 
-ENTRYPOINT ["bash"]
+CMD ["ipfs", "daemon"]
