@@ -7,3 +7,9 @@
 [submodule "elastic-ethereum"]
 	path = elastic-ethereum
 	url = https://github.com/NexusDevelopment/elastic-ethereum
+[submodule "keeper"]
+	path = keeper
+	url = https://github.com/NexusDevelopment/keeper
+[submodule "ENS"]
+	path = ENS
+	url = https://github.com/NexusDevelopment/ENS
