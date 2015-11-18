@@ -4,3 +4,6 @@
 [submodule "dapple"]
 	path = dapple
 	url = https://github.com/NexusDevelopment/dapple
+[submodule "elastic-ethereum"]
+	path = elastic-ethereum
+	url = https://github.com/NexusDevelopment/elastic-ethereum
