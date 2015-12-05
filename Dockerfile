@@ -49,6 +49,10 @@ RUN go get -u github.com/ipfs/go-ipfs/cmd/ipfs
 ENV PATH $PATH:$GOPATH/bin
 RUN ipfs init
 
+# Node
+ENV NODE_VERSION node-v5.1.1-linux-x64
+RUN cd /bin && wget https://nodejs.org/dist/v5.1.1/$NODE_VERSION.tar.gz && tar xzf $NODE_VERSION.tar.gz && ln -s $NODE_VERSION/bin/npm npm && ln -s $NODE_VERSION/bin/node node && rm $NODE_VERSION.tar.gz
+
 # Cleanup
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
