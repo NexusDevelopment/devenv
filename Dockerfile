@@ -38,7 +38,7 @@ RUN apt-get -y -q install vim
 RUN echo "workon nexus" >> $HOME/.bashrc
 
 RUN cd ~ && git clone --recursive https://github.com/NexusDevelopment/devenv && cd devenv && git submodule init && git submodule update
-RUN /bin/bash -c 'source /usr/local/bin/virtualenvwrapper.sh && cd ~/devenv/dapple && workon nexus && python setup.py install'
+RUN /bin/bash -c 'source /usr/local/bin/virtualenvwrapper.sh && cd ~/devenv/dapple && git pull origin master && cd ~/devenv/dapple/pydapple && workon nexus && python setup.py install'
 
 RUN ln -s ~/solidity/build/solc/solc /bin/solc
 RUN ln -s ~/go-ethereum/build/bin/geth /bin/geth
@@ -51,7 +51,7 @@ RUN ipfs init
 
 # Node
 ENV NODE_VERSION node-v5.1.1-linux-x64
-RUN cd /bin && wget https://nodejs.org/dist/v5.1.1/$NODE_VERSION.tar.gz && tar xzf $NODE_VERSION.tar.gz && ln -s $NODE_VERSION/bin/npm npm && ln -s $NODE_VERSION/bin/node node && rm $NODE_VERSION.tar.gz
+RUN cd /bin && wget https://nodejs.org/dist/v5.1.1/$NODE_VERSION.tar.gz && tar xzf $NODE_VERSION.tar.gz && ln -s $NODE_VERSION/bin/npm npm && ln -s $NODE_VERSION/bin/node node && rm $NODE_VERSION.tar.gz && cd ~/devenv/dapple && sudo npm install
 
 # Cleanup
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
