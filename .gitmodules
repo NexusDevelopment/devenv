@@ -13,3 +13,6 @@
 [submodule "ENS"]
 	path = ENS
 	url = https://github.com/NexusDevelopment/ENS
+[submodule "groc"]
+	path = groc
+	url = https://github.com/NexusDevelopment/groc
