@@ -1,6 +1,7 @@
-# devenv
-
+# devenv 
 A base repository for Nexus developers.
+
+[![Slack Status](http://slack.makerdao.com/badge.svg)](https://slack.makerdao.com)
 
 # Setting up Docker
 
