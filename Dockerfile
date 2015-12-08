@@ -52,6 +52,7 @@ RUN ipfs init
 # Node
 ENV NODE_VERSION node-v5.1.1-linux-x64
 RUN cd /bin && wget https://nodejs.org/dist/v5.1.1/$NODE_VERSION.tar.gz && tar xzf $NODE_VERSION.tar.gz && ln -s $NODE_VERSION/bin/npm npm && ln -s $NODE_VERSION/bin/node node && rm $NODE_VERSION.tar.gz && cd ~/devenv/dapple && sudo npm install
+RUN echo "export PATH=\$PATH:/bin/$NODE_VERSION/bin" >> ~/.bashrc
 
 # Cleanup
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
