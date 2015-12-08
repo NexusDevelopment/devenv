@@ -57,6 +57,6 @@ RUN echo "export PATH=\$PATH:/bin/$NODE_VERSION/bin" >> ~/.bashrc
 # Cleanup
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-EXPOSE 4001 5001 8080
+EXPOSE 4001 5001 8080 8000
 
 CMD ["ipfs", "daemon"]
