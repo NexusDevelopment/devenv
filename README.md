@@ -31,12 +31,20 @@ and then starts it up and forks it into the background.
 To log into your Docker image instance and start coding:
 
 ```
-docker exec -it nexus ssh-agent bash
+docker exec -u dev -it nexus ssh-agent bash
 ```
 
 This starts up an instance of `bash` in your Docker image instance via
 `ssh-agent` (so SSH keys unlocked via `ssh-add` stay unlocked) and then connects
 your terminal to it.
+
+If you pulled the image from Docker Hub, then `dapple` will already be
+installed. If you built it per the instructions above, you will need to run:
+
+```
+cd ~/devenv/dapple
+npm install -g .
+```
 
 If your image instance is ever stopped (as it will be after a reboot), you can
 restart it with:
